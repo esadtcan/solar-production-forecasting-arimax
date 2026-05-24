@@ -1,0 +1,512 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [7 0 R 9 0 R 11 0 R 13 0 R] /Count 4 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+6 0 obj
+<< /Length 3926 >>
+stream
+BT
+/F2 20.00 Tf
+54.00 783.89 Td (Detailed Report: Solar Production Forecasting) Tj
+-54.00 -783.89 Td
+/F2 20.00 Tf
+54.00 758.29 Td (with ARIMAX) Tj
+-54.00 -758.29 Td
+/F2 15.00 Tf
+54.00 714.69 Td (1. Introduction) Tj
+-54.00 -714.69 Td
+/F1 10.50 Tf
+54.00 683.49 Td (This project was developed for IE360 as a time series forecasting task. The objective is) Tj
+-54.00 -683.49 Td
+/F1 10.50 Tf
+54.00 670.05 Td (to forecast next-day hourly solar production for a solar power plant. The final output) Tj
+-54.00 -670.05 Td
+/F1 10.50 Tf
+54.00 656.61 Td (expected from the model is a list of 24 hourly forecast values.) Tj
+-54.00 -656.61 Td
+/F1 10.50 Tf
+54.00 636.17 Td (Solar production forecasting is strongly affected by both time series structure and) Tj
+-54.00 -636.17 Td
+/F1 10.50 Tf
+54.00 622.73 Td (weather conditions. Production follows a daily daylight pattern, changes seasonally, and) Tj
+-54.00 -622.73 Td
+/F1 10.50 Tf
+54.00 609.29 Td (reacts directly to radiation and cloud cover. For that reason, the project uses an) Tj
+-54.00 -609.29 Td
+/F1 10.50 Tf
+54.00 595.85 Td (ARIMAX-style approach: a SARIMAX model captures time series dynamics while weather and) Tj
+-54.00 -595.85 Td
+/F1 10.50 Tf
+54.00 582.41 Td (calendar variables are supplied as exogenous regressors.) Tj
+-54.00 -582.41 Td
+/F2 15.00 Tf
+54.00 561.97 Td (2. Data) Tj
+-54.00 -561.97 Td
+/F2 12.00 Tf
+54.00 530.77 Td (2.1 Production Data) Tj
+-54.00 -530.77 Td
+/F1 10.50 Tf
+54.00 507.41 Td (The dependent variable is `sun_rt`, representing hourly solar production. The data is) Tj
+-54.00 -507.41 Td
+/F1 10.50 Tf
+54.00 493.97 Td (downloaded from a Google Drive CSV file inside `forecast_helper.py`.) Tj
+-54.00 -493.97 Td
+/F1 10.50 Tf
+54.00 473.53 Td (The production table contains:) Tj
+-54.00 -473.53 Td
+/F1 10.50 Tf
+70.00 453.09 Td (- `dt`: timestamp of the observation,) Tj
+-70.00 -453.09 Td
+/F1 10.50 Tf
+70.00 434.65 Td (- `sun_rt`: observed solar production.) Tj
+-70.00 -434.65 Td
+/F1 10.50 Tf
+54.00 416.21 Td (The timestamps are converted to the `Europe/Istanbul` timezone before merging with weather) Tj
+-54.00 -416.21 Td
+/F1 10.50 Tf
+54.00 402.77 Td (data.) Tj
+-54.00 -402.77 Td
+/F2 12.00 Tf
+54.00 382.33 Td (2.2 Weather Data) Tj
+-54.00 -382.33 Td
+/F1 10.50 Tf
+54.00 358.97 Td (Weather data is downloaded from Open-Meteo. The project uses two coordinate points for the) Tj
+-54.00 -358.97 Td
+/F1 10.50 Tf
+54.00 345.53 Td (plant area:) Tj
+-54.00 -345.53 Td
+/F1 10.50 Tf
+70.00 325.09 Td (- latitude `37.76967344769773`, longitude `33.574324027291595`,) Tj
+-70.00 -325.09 Td
+/F1 10.50 Tf
+70.00 306.65 Td (- latitude `37.797667446516925`, longitude `34.46742393001458`.) Tj
+-70.00 -306.65 Td
+/F1 10.50 Tf
+54.00 288.21 Td (The variables used in the model are:) Tj
+-54.00 -288.21 Td
+/F1 10.50 Tf
+70.00 267.77 Td (- `temperature_2m`,) Tj
+-70.00 -267.77 Td
+/F1 10.50 Tf
+70.00 249.33 Td (- `shortwave_radiation`,) Tj
+-70.00 -249.33 Td
+/F1 10.50 Tf
+70.00 230.89 Td (- `cloudcover`,) Tj
+-70.00 -230.89 Td
+/F1 10.50 Tf
+70.00 212.45 Td (- `relativehumidity_2m`,) Tj
+-70.00 -212.45 Td
+/F1 10.50 Tf
+70.00 194.01 Td (- `weathercode`.) Tj
+-70.00 -194.01 Td
+/F1 10.50 Tf
+54.00 175.57 Td (The code fetches both historical forecast data and current forecast data. Historical) Tj
+-54.00 -175.57 Td
+/F1 10.50 Tf
+54.00 162.13 Td (forecast data is used for past timestamps, while current forecast data supplies the future) Tj
+-54.00 -162.13 Td
+/F1 10.50 Tf
+54.00 148.69 Td (period needed for next-day prediction.) Tj
+-54.00 -148.69 Td
+/F2 15.00 Tf
+54.00 128.25 Td (3. Data Preparation) Tj
+-54.00 -128.25 Td
+/F1 10.50 Tf
+54.00 97.05 Td (The main script constructs an hourly timeline from `2022-01-01` to the final hour of the) Tj
+-54.00 -97.05 Td
+/F1 10.50 Tf
+54.00 83.61 Td (forecast day. Production data and weather data are merged into this hourly timeline by) Tj
+-54.00 -83.61 Td
+/F1 10.50 Tf
+54.00 70.17 Td (timestamp.) Tj
+-54.00 -70.17 Td
+/F1 8 Tf
+471.28 30 Td (Page 1 of 4) Tj
+ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 6 0 R >>
+endobj
+8 0 obj
+<< /Length 3919 >>
+stream
+BT
+/F1 10.50 Tf
+54.00 776.89 Td (A 3-day lag variable is created:) Tj
+-54.00 -776.89 Td
+/F3 9.20 Tf
+70.00 756.45 Td (sun_rt_lag_3days = sun_rt shifted by 72 hours) Tj
+-70.00 -756.45 Td
+/F1 10.50 Tf
+54.00 739.67 Td (This lag is useful because in real forecasting settings the latest production data may not) Tj
+-54.00 -739.67 Td
+/F1 10.50 Tf
+54.00 726.23 Td (be immediately available. The lagged variable allows the model to use recent production) Tj
+-54.00 -726.23 Td
+/F1 10.50 Tf
+54.00 712.79 Td (behavior without relying on same-day observations.) Tj
+-54.00 -712.79 Td
+/F2 15.00 Tf
+54.00 692.35 Td (4. Feature Engineering) Tj
+-54.00 -692.35 Td
+/F1 10.50 Tf
+54.00 661.15 Td (The weather APIs return separate columns for each plant coordinate. The script combines) Tj
+-54.00 -661.15 Td
+/F1 10.50 Tf
+54.00 647.71 Td (the two locations into summary weather features:) Tj
+-54.00 -647.71 Td
+/F1 10.50 Tf
+70.00 627.27 Td (- mean temperature,) Tj
+-70.00 -627.27 Td
+/F1 10.50 Tf
+70.00 608.83 Td (- maximum temperature,) Tj
+-70.00 -608.83 Td
+/F1 10.50 Tf
+70.00 590.39 Td (- mean shortwave radiation,) Tj
+-70.00 -590.39 Td
+/F1 10.50 Tf
+70.00 571.95 Td (- mean cloud cover,) Tj
+-70.00 -571.95 Td
+/F1 10.50 Tf
+70.00 553.51 Td (- mean relative humidity,) Tj
+-70.00 -553.51 Td
+/F1 10.50 Tf
+70.00 535.07 Td (- mean weather code.) Tj
+-70.00 -535.07 Td
+/F1 10.50 Tf
+54.00 516.63 Td (An additional derived feature is created:) Tj
+-54.00 -516.63 Td
+/F3 9.20 Tf
+70.00 496.19 Td (effective_radiation = shortwave_radiation_mean * \(1 - cloudcover_mean / 100\)) Tj
+-70.00 -496.19 Td
+/F1 10.50 Tf
+54.00 479.42 Td (This feature is a simple approximation of how much radiation remains after cloud cover is) Tj
+-54.00 -479.42 Td
+/F1 10.50 Tf
+54.00 465.98 Td (considered.) Tj
+-54.00 -465.98 Td
+/F1 10.50 Tf
+54.00 445.54 Td (The hourly data is then aggregated into a daily table. The daily table contains:) Tj
+-54.00 -445.54 Td
+/F1 10.50 Tf
+70.00 425.10 Td (- total daily production,) Tj
+-70.00 -425.10 Td
+/F1 10.50 Tf
+70.00 406.66 Td (- maximum daily radiation,) Tj
+-70.00 -406.66 Td
+/F1 10.50 Tf
+70.00 388.22 Td (- sum of the 3-day lagged production,) Tj
+-70.00 -388.22 Td
+/F1 10.50 Tf
+70.00 369.78 Td (- daily weather averages,) Tj
+-70.00 -369.78 Td
+/F1 10.50 Tf
+70.00 351.34 Td (- trend index,) Tj
+-70.00 -351.34 Td
+/F1 10.50 Tf
+70.00 332.90 Td (- day-of-week category.) Tj
+-70.00 -332.90 Td
+/F1 10.50 Tf
+54.00 314.46 Td (Several variables are transformed using `log1p`. This reduces the impact of large values) Tj
+-54.00 -314.46 Td
+/F1 10.50 Tf
+54.00 301.02 Td (and keeps zero values valid:) Tj
+-54.00 -301.02 Td
+/F3 9.20 Tf
+70.00 280.58 Td (log_x = log\(1 + x\)) Tj
+-70.00 -280.58 Td
+/F1 10.50 Tf
+54.00 263.80 Td (Negative values are clipped to zero before applying the log transformation.) Tj
+-54.00 -263.80 Td
+/F2 15.00 Tf
+54.00 243.36 Td (5. Modeling Approach) Tj
+-54.00 -243.36 Td
+/F1 10.50 Tf
+54.00 212.16 Td (The project uses a SARIMAX model as an ARIMAX-style forecasting model. The model is) Tj
+-54.00 -212.16 Td
+/F1 10.50 Tf
+54.00 198.72 Td (configured with:) Tj
+-54.00 -198.72 Td
+/F3 9.20 Tf
+70.00 178.28 Td (order = \(1, 1, 1\)) Tj
+-70.00 -178.28 Td
+/F1 10.50 Tf
+54.00 161.51 Td (The dependent variable is the log-transformed total daily production. Exogenous variables) Tj
+-54.00 -161.51 Td
+/F1 10.50 Tf
+54.00 148.07 Td (include weather features, the 3-day lagged production feature, trend, and day-of-week) Tj
+-54.00 -148.07 Td
+/F1 10.50 Tf
+54.00 134.63 Td (dummy variables.) Tj
+-54.00 -134.63 Td
+/F1 10.50 Tf
+54.00 114.19 Td (The model is trained using data that would realistically be available at forecast time.) Tj
+-54.00 -114.19 Td
+/F1 10.50 Tf
+54.00 100.75 Td (For a target day `t+1`, the training data is limited to `t-2` and earlier. This avoids) Tj
+-54.00 -100.75 Td
+/F1 10.50 Tf
+54.00 87.31 Td (using production observations that may not yet be available.) Tj
+-54.00 -87.31 Td
+/F1 8 Tf
+471.28 30 Td (Page 2 of 4) Tj
+ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 8 0 R >>
+endobj
+10 0 obj
+<< /Length 4356 >>
+stream
+BT
+/F1 10.50 Tf
+54.00 783.89 Td (The daily forecast is converted back to the original scale with:) Tj
+-54.00 -783.89 Td
+/F3 9.20 Tf
+70.00 763.45 Td (forecast = exp\(log_forecast\) - 1) Tj
+-70.00 -763.45 Td
+/F1 10.50 Tf
+54.00 746.67 Td (Negative forecasts are clipped to zero.) Tj
+-54.00 -746.67 Td
+/F2 15.00 Tf
+54.00 726.23 Td (6. Hourly Forecast Distribution) Tj
+-54.00 -726.23 Td
+/F1 10.50 Tf
+54.00 695.03 Td (The SARIMAX model forecasts daily total production. To produce the required hourly output,) Tj
+-54.00 -695.03 Td
+/F1 10.50 Tf
+54.00 681.59 Td (the daily forecast is distributed across 24 hours using historical hourly production) Tj
+-54.00 -681.59 Td
+/F1 10.50 Tf
+54.00 668.15 Td (profiles.) Tj
+-54.00 -668.15 Td
+/F1 10.50 Tf
+54.00 647.71 Td (The hourly profile is built as follows:) Tj
+-54.00 -647.71 Td
+/F1 10.50 Tf
+70.00 627.27 Td (1. Calculate each hour's share of its daily production total.) Tj
+-70.00 -627.27 Td
+/F1 10.50 Tf
+70.00 608.83 Td (2. Group historical ratios by year, ISO week, and hour.) Tj
+-70.00 -608.83 Td
+/F1 10.50 Tf
+70.00 590.39 Td (3. For the forecast date, use the matching year-week-hour profile when available.) Tj
+-70.00 -590.39 Td
+/F1 10.50 Tf
+70.00 571.95 Td (4. If unavailable, fall back to the previous week.) Tj
+-70.00 -571.95 Td
+/F1 10.50 Tf
+70.00 553.51 Td (5. If still unavailable, use the same ISO week averaged across all years.) Tj
+-70.00 -553.51 Td
+/F1 10.50 Tf
+70.00 535.07 Td (6. If no profile exists, distribute the daily forecast equally across 24 hours.) Tj
+-70.00 -535.07 Td
+/F1 10.50 Tf
+54.00 516.63 Td (This approach preserves the typical daily solar production shape: low values at night,) Tj
+-54.00 -516.63 Td
+/F1 10.50 Tf
+54.00 503.19 Td (increasing values after sunrise, peak values around midday, and decreasing values toward) Tj
+-54.00 -503.19 Td
+/F1 10.50 Tf
+54.00 489.75 Td (sunset.) Tj
+-54.00 -489.75 Td
+/F2 15.00 Tf
+54.00 469.31 Td (7. Current Implementation) Tj
+-54.00 -469.31 Td
+/F1 10.50 Tf
+54.00 438.11 Td (The cleaned implementation in `forecast.py` is organized into focused functions:) Tj
+-54.00 -438.11 Td
+/F1 10.50 Tf
+70.00 417.67 Td (- `ForecastConfig`: stores forecast date, start date, and timezone.) Tj
+-70.00 -417.67 Td
+/F1 10.50 Tf
+70.00 399.23 Td (- `fetch_weather_data\(\)`: downloads and combines weather data.) Tj
+-70.00 -399.23 Td
+/F1 10.50 Tf
+70.00 380.79 Td (- `build_hourly_dataset\(\)`: creates the merged hourly production-weather table.) Tj
+-70.00 -380.79 Td
+/F1 10.50 Tf
+70.00 362.35 Td (- `add_hourly_weather_features\(\)`: builds location-averaged weather features.) Tj
+-70.00 -362.35 Td
+/F1 10.50 Tf
+70.00 343.91 Td (- `build_daily_dataset\(\)`: aggregates hourly data into daily model rows.) Tj
+-70.00 -343.91 Td
+/F1 10.50 Tf
+70.00 325.47 Td (- `build_model_features\(\)`: creates numeric model inputs.) Tj
+-70.00 -325.47 Td
+/F1 10.50 Tf
+70.00 307.03 Td (- `forecast_daily_totals\(\)`: fits SARIMAX models and forecasts daily totals.) Tj
+-70.00 -307.03 Td
+/F1 10.50 Tf
+70.00 288.59 Td (- `build_hourly_profile\(\)`: calculates historical hourly production ratios.) Tj
+-70.00 -288.59 Td
+/F1 10.50 Tf
+70.00 270.15 Td (- `distribute_daily_forecasts\(\)`: converts daily forecasts into hourly values.) Tj
+-70.00 -270.15 Td
+/F1 10.50 Tf
+70.00 251.71 Td (- `run_forecast\(\)`: runs the end-to-end forecasting pipeline.) Tj
+-70.00 -251.71 Td
+/F1 10.50 Tf
+54.00 233.27 Td (The only output of the script is the 24-value forecast list, which makes it easy to submit) Tj
+-54.00 -233.27 Td
+/F1 10.50 Tf
+54.00 219.83 Td (or consume programmatically.) Tj
+-54.00 -219.83 Td
+/F2 15.00 Tf
+54.00 199.39 Td (8. Assumptions) Tj
+-54.00 -199.39 Td
+/F1 10.50 Tf
+54.00 168.19 Td (The model relies on the following assumptions:) Tj
+-54.00 -168.19 Td
+/F1 10.50 Tf
+70.00 147.75 Td (- The Google Drive production CSV is reachable and has the expected schema.) Tj
+-70.00 -147.75 Td
+/F1 10.50 Tf
+70.00 129.31 Td (- Open-Meteo APIs are reachable at runtime.) Tj
+-70.00 -129.31 Td
+/F1 10.50 Tf
+70.00 110.87 Td (- Weather forecasts are available for the forecast day.) Tj
+-70.00 -110.87 Td
+/F1 10.50 Tf
+70.00 92.43 Td (- Historical hourly production patterns are useful for distributing daily totals.) Tj
+-70.00 -92.43 Td
+/F1 10.50 Tf
+70.00 73.99 Td (- The 3-day lag is a realistic proxy for latest available production data.) Tj
+-70.00 -73.99 Td
+/F1 8 Tf
+471.28 30 Td (Page 3 of 4) Tj
+ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 10 0 R >>
+endobj
+12 0 obj
+<< /Length 2985 >>
+stream
+BT
+/F1 10.50 Tf
+70.00 783.89 Td (- A fixed SARIMAX `\(1, 1, 1\)` structure is sufficient for this project version.) Tj
+-70.00 -783.89 Td
+/F2 15.00 Tf
+54.00 765.45 Td (9. Limitations) Tj
+-54.00 -765.45 Td
+/F1 10.50 Tf
+54.00 734.25 Td (The current implementation is functional but still has limitations:) Tj
+-54.00 -734.25 Td
+/F1 10.50 Tf
+70.00 713.81 Td (- There is no committed offline dataset, so reproducibility depends on external) Tj
+-70.00 -713.81 Td
+/F1 10.50 Tf
+54.00 695.37 Td (services.) Tj
+-54.00 -695.37 Td
+/F1 10.50 Tf
+70.00 674.93 Td (- The model does not automatically tune SARIMAX parameters.) Tj
+-70.00 -674.93 Td
+/F1 10.50 Tf
+70.00 656.49 Td (- The script does not currently print evaluation metrics.) Tj
+-70.00 -656.49 Td
+/F1 10.50 Tf
+70.00 638.05 Td (- The hourly distribution method is heuristic and separate from the SARIMAX) Tj
+-70.00 -638.05 Td
+/F1 10.50 Tf
+54.00 619.61 Td (model.) Tj
+-54.00 -619.61 Td
+/F1 10.50 Tf
+70.00 599.17 Td (- API response changes or unavailable data can break the pipeline.) Tj
+-70.00 -599.17 Td
+/F1 10.50 Tf
+70.00 580.73 Td (- `forecast_helper.py` still has duplicated code for weather API handling.) Tj
+-70.00 -580.73 Td
+/F2 15.00 Tf
+54.00 562.29 Td (10. Recommended Next Steps) Tj
+-54.00 -562.29 Td
+/F1 10.50 Tf
+54.00 531.09 Td (Several improvements would make the project stronger:) Tj
+-54.00 -531.09 Td
+/F1 10.50 Tf
+70.00 510.65 Td (- Add `requirements.txt` to make setup reproducible.) Tj
+-70.00 -510.65 Td
+/F1 10.50 Tf
+70.00 492.21 Td (- Add a local sample dataset for testing without internet access.) Tj
+-70.00 -492.21 Td
+/F1 10.50 Tf
+70.00 473.77 Td (- Add a backtesting module that evaluates recent forecast performance.) Tj
+-70.00 -473.77 Td
+/F1 10.50 Tf
+70.00 455.33 Td (- Report WMAPE, MAE, and RMSE over a rolling validation window.) Tj
+-70.00 -455.33 Td
+/F1 10.50 Tf
+70.00 436.89 Td (- Compare SARIMAX against baseline models.) Tj
+-70.00 -436.89 Td
+/F1 10.50 Tf
+70.00 418.45 Td (- Refactor `forecast_helper.py` to share API request logic.) Tj
+-70.00 -418.45 Td
+/F1 10.50 Tf
+70.00 400.01 Td (- Add command-line arguments for forecast date and output path.) Tj
+-70.00 -400.01 Td
+/F1 10.50 Tf
+70.00 381.57 Td (- Save forecasts to CSV in addition to printing the list.) Tj
+-70.00 -381.57 Td
+/F2 15.00 Tf
+54.00 363.13 Td (11. Conclusion) Tj
+-54.00 -363.13 Td
+/F1 10.50 Tf
+54.00 331.93 Td (The project implements a practical solar production forecasting pipeline using weather) Tj
+-54.00 -331.93 Td
+/F1 10.50 Tf
+54.00 318.49 Td (data and time series modeling. The cleaned version separates data loading, feature) Tj
+-54.00 -318.49 Td
+/F1 10.50 Tf
+54.00 305.05 Td (engineering, daily forecasting, and hourly distribution into readable functions. This) Tj
+-54.00 -305.05 Td
+/F1 10.50 Tf
+54.00 291.61 Td (makes the project easier to understand, maintain, and extend for future IE360 reporting or) Tj
+-54.00 -291.61 Td
+/F1 10.50 Tf
+54.00 278.17 Td (experimentation.) Tj
+-54.00 -278.17 Td
+/F1 8 Tf
+471.28 30 Td (Page 4 of 4) Tj
+ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 12 0 R >>
+endobj
+xref
+0 14
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000141 00000 n 
+0000000211 00000 n 
+0000000286 00000 n 
+0000000354 00000 n 
+0000004332 00000 n 
+0000004484 00000 n 
+0000008455 00000 n 
+0000008607 00000 n 
+0000013016 00000 n 
+0000013170 00000 n 
+0000016208 00000 n 
+trailer
+<< /Size 14 /Root 1 0 R >>
+startxref
+16362
+%%EOF
