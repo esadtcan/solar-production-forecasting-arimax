@@ -1,4 +1,4 @@
-# IE360 Solar Production Forecasting with ARIMAX
+# Solar Production Forecasting with ARIMAX
 
 This repository contains an IE360 Time Series Analysis term project for
 forecasting next-day hourly solar energy production. The model combines
