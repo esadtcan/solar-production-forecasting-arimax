@@ -1,13 +1,14 @@
 # IE360 Solar Production Forecasting with ARIMAX
 
-This repository contains an IE360 course project for forecasting next-day hourly
-solar energy production. The model combines historical production, weather
-forecasts, calendar effects, and an ARIMAX-style SARIMAX model with exogenous
-weather variables.
+This repository contains an IE360 Time Series Analysis term project for
+forecasting next-day hourly solar energy production. The model combines
+historical production, weather forecasts, calendar effects, and an ARIMAX-style
+SARIMAX model with exogenous weather variables.
 
 The main script is [`forecast.py`](forecast.py). It fetches the latest available
 data, builds daily production forecasts, distributes the daily forecast into 24
-hourly values, and prints the final result as a Python list.
+hourly values, and prints the final result as a Python list. The detailed report
+is written in LaTeX and exported as [`REPORT.pdf`](REPORT.pdf).
 
 ## Project Goal
 
@@ -25,10 +26,16 @@ solar plant using:
 
 ```text
 .
-├── forecast.py          # Main forecasting pipeline
-├── forecast_helper.py   # Data fetching utilities
-├── README.md            # Project overview and usage guide
-└── REPORT.md            # Detailed project report
+├── forecast.py                 # Main forecasting pipeline
+├── forecast_helper.py          # Data fetching utilities
+├── requirements.txt            # Python dependencies
+├── README.md                   # Project overview and usage guide
+├── REPORT.md                   # Report index and rebuild instructions
+├── REPORT.pdf                  # Final LaTeX-generated report
+└── report/
+    ├── REPORT.tex              # LaTeX report source
+    ├── metrics.json            # Metrics used while preparing the report
+    └── figures/                # Report plots
 ```
 
 ## Data Sources
@@ -67,11 +74,14 @@ At a high level, `forecast.py` performs these steps:
 
 ## Installation
 
-This project expects Python 3.9+ and the following packages:
+This project expects Python 3.9+.
 
 ```bash
-pip install pandas numpy statsmodels openmeteo-requests requests-cache retry-requests
+pip install -r requirements.txt
 ```
+
+The report PDF is generated with LaTeX. On macOS, a TeX distribution such as
+MacTeX or BasicTeX is sufficient as long as `pdflatex` is available.
 
 ## Usage
 
@@ -91,6 +101,27 @@ forecast day:
 The script requires internet access because it downloads production and weather
 data at runtime.
 
+## Report
+
+The project report is available as [`REPORT.pdf`](REPORT.pdf). It includes:
+
+- problem definition and output constraints,
+- data source and coverage tables,
+- missing-value analysis,
+- feature engineering details,
+- correlation and production plots,
+- daily and hourly backtest metrics,
+- operational pipeline summary,
+- limitations and future improvements.
+
+To rebuild the report from LaTeX:
+
+```bash
+pdflatex -interaction=nonstopmode -halt-on-error -output-directory=report report/REPORT.tex
+pdflatex -interaction=nonstopmode -halt-on-error -output-directory=report report/REPORT.tex
+cp report/REPORT.pdf REPORT.pdf
+```
+
 ## Main Design Choices
 
 - Daily-first modeling: The model forecasts total daily production first, then
@@ -108,13 +139,13 @@ data at runtime.
 - The model depends on external APIs and a hosted production CSV.
 - There is no local test dataset committed to the repository.
 - SARIMAX fitting can be sensitive to noisy or missing data.
-- The current version does not include automated backtesting output.
+- Backtest metrics are reported in the LaTeX report, but there is not yet a
+  dedicated reusable backtesting script.
 - The helper module still contains duplicated weather-fetching logic that could
   be refactored further.
 
 ## Future Improvements
 
-- Add a `requirements.txt` file for reproducible installation.
 - Add local sample data for offline testing.
 - Add a backtesting script with WMAPE or MAE reporting.
 - Compare SARIMAX with simpler baselines such as persistence, linear regression,

@@ -1,0 +1,270 @@
+{
+  "forecast_date": "2026-06-01",
+  "hourly_rows": 38712,
+  "observed_hourly_rows": 29832,
+  "hourly_start": "2022-01-01 00:00:00+03:00",
+  "hourly_end": "2026-06-01 23:00:00+03:00",
+  "production_start": "2022-01-01 00:00:00+03:00",
+  "production_end": "2025-05-27 23:00:00+03:00",
+  "daily_rows": 1613,
+  "feature_count": 16,
+  "feature_blocks": {
+    "Weather/log weather": 7,
+    "Lagged production": 1,
+    "Calendar/day of week": 7,
+    "Trend": 1
+  },
+  "daily_metrics": {
+    "n": 0,
+    "mae": null,
+    "rmse": null,
+    "wmape": null
+  },
+  "hourly_metrics": {
+    "n": 0,
+    "mae": null,
+    "rmse": null,
+    "wmape": null
+  },
+  "missingness": [
+    {
+      "area": "Hourly production target",
+      "missing_rate": 22.938623682579045
+    },
+    {
+      "area": "Hourly weather raw columns",
+      "missing_rate": 0.0
+    },
+    {
+      "area": "Daily feature matrix",
+      "missing_rate": 0.0
+    },
+    {
+      "area": "Next-day forecast rows",
+      "missing_rate": 9.523809523809524
+    }
+  ],
+  "daily_eval_rows": [
+    {
+      "Date": "2026-05-23",
+      "forecast": 31584.26580816688,
+      "total_sun_rt": 0.0
+    },
+    {
+      "Date": "2026-05-24",
+      "forecast": 31942.8977610764,
+      "total_sun_rt": 0.0
+    },
+    {
+      "Date": "2026-05-25",
+      "forecast": 30115.954879823043,
+      "total_sun_rt": 0.0
+    },
+    {
+      "Date": "2026-05-26",
+      "forecast": 37892.806031582644,
+      "total_sun_rt": 0.0
+    },
+    {
+      "Date": "2026-05-27",
+      "forecast": 43975.60295944915,
+      "total_sun_rt": 0.0
+    },
+    {
+      "Date": "2026-05-28",
+      "forecast": 26865.99213603258,
+      "total_sun_rt": 0.0
+    },
+    {
+      "Date": "2026-05-29",
+      "forecast": 30108.843656742065,
+      "total_sun_rt": 0.0
+    },
+    {
+      "Date": "2026-05-30",
+      "forecast": 49738.34366155455,
+      "total_sun_rt": 0.0
+    },
+    {
+      "Date": "2026-05-31",
+      "forecast": 49234.05779916229,
+      "total_sun_rt": 0.0
+    },
+    {
+      "Date": "2026-06-01",
+      "forecast": 45720.87316218127,
+      "total_sun_rt": 0.0
+    }
+  ],
+  "top_corr_with_target": {
+    "sun_rt_lag_3days_sum": 0.9033115004460104,
+    "max_radiation": 0.4295934409476299,
+    "shortwave_radiation_mean": 0.4202079413225047,
+    "effective_radiation": 0.35306466503319595,
+    "cloudcover_mean": -0.31179813309647153,
+    "temperature_2m_mean": 0.31063932752278123
+  },
+  "latest_forecast": [
+    {
+      "datetime": "2026-06-01 00:00:00",
+      "hourly_forecast": 0.006541671259102462
+    },
+    {
+      "datetime": "2026-06-01 01:00:00",
+      "hourly_forecast": 0.006541671259102462
+    },
+    {
+      "datetime": "2026-06-01 02:00:00",
+      "hourly_forecast": 0.006541671259102462
+    },
+    {
+      "datetime": "2026-06-01 03:00:00",
+      "hourly_forecast": 0.11944989989076243
+    },
+    {
+      "datetime": "2026-06-01 04:00:00",
+      "hourly_forecast": 10.135194320731477
+    },
+    {
+      "datetime": "2026-06-01 05:00:00",
+      "hourly_forecast": 101.98086407849642
+    },
+    {
+      "datetime": "2026-06-01 06:00:00",
+      "hourly_forecast": 981.3633754104635
+    },
+    {
+      "datetime": "2026-06-01 07:00:00",
+      "hourly_forecast": 2755.870160157479
+    },
+    {
+      "datetime": "2026-06-01 08:00:00",
+      "hourly_forecast": 3759.2557283428487
+    },
+    {
+      "datetime": "2026-06-01 09:00:00",
+      "hourly_forecast": 4329.1380508158045
+    },
+    {
+      "datetime": "2026-06-01 10:00:00",
+      "hourly_forecast": 4654.539461275814
+    },
+    {
+      "datetime": "2026-06-01 11:00:00",
+      "hourly_forecast": 4699.506186388675
+    },
+    {
+      "datetime": "2026-06-01 12:00:00",
+      "hourly_forecast": 4669.900096814903
+    },
+    {
+      "datetime": "2026-06-01 13:00:00",
+      "hourly_forecast": 4466.6043148970875
+    },
+    {
+      "datetime": "2026-06-01 14:00:00",
+      "hourly_forecast": 4289.508916599347
+    },
+    {
+      "datetime": "2026-06-01 15:00:00",
+      "hourly_forecast": 3782.2466384896934
+    },
+    {
+      "datetime": "2026-06-01 16:00:00",
+      "hourly_forecast": 3202.764360436015
+    },
+    {
+      "datetime": "2026-06-01 17:00:00",
+      "hourly_forecast": 2466.253680635546
+    },
+    {
+      "datetime": "2026-06-01 18:00:00",
+      "hourly_forecast": 1329.7585083399158
+    },
+    {
+      "datetime": "2026-06-01 19:00:00",
+      "hourly_forecast": 218.14022226194845
+    },
+    {
+      "datetime": "2026-06-01 20:00:00",
+      "hourly_forecast": 2.2766202540068794
+    },
+    {
+      "datetime": "2026-06-01 21:00:00",
+      "hourly_forecast": 0.01319376888709104
+    },
+    {
+      "datetime": "2026-06-01 22:00:00",
+      "hourly_forecast": 0.006541671259102462
+    },
+    {
+      "datetime": "2026-06-01 23:00:00",
+      "hourly_forecast": 1.47197230868045
+    }
+  ],
+  "backtest_forecast_date": "2025-05-27",
+  "backtest_daily_metrics": {
+    "n": 10,
+    "mae": 2214.9634538392556,
+    "rmse": 2566.091312745164,
+    "wmape": 7.442698521177786
+  },
+  "backtest_hourly_metrics": {
+    "n": 240,
+    "mae": 115.05242793441184,
+    "rmse": 204.04073245149675,
+    "wmape": 9.278353017638594
+  },
+  "backtest_daily_rows": [
+    {
+      "Date": "2025-05-18",
+      "forecast": 30868.49427903888,
+      "total_sun_rt": 26301.72
+    },
+    {
+      "Date": "2025-05-19",
+      "forecast": 30671.688889739835,
+      "total_sun_rt": 31360.2
+    },
+    {
+      "Date": "2025-05-20",
+      "forecast": 29152.684298994966,
+      "total_sun_rt": 31290.31
+    },
+    {
+      "Date": "2025-05-21",
+      "forecast": 30778.059772911252,
+      "total_sun_rt": 33423.13
+    },
+    {
+      "Date": "2025-05-22",
+      "forecast": 30076.69211895542,
+      "total_sun_rt": 31034.34
+    },
+    {
+      "Date": "2025-05-23",
+      "forecast": 30868.989034423703,
+      "total_sun_rt": 31749.22
+    },
+    {
+      "Date": "2025-05-24",
+      "forecast": 29465.597464646176,
+      "total_sun_rt": 31924.18
+    },
+    {
+      "Date": "2025-05-25",
+      "forecast": 30463.06495145339,
+      "total_sun_rt": 28006.56
+    },
+    {
+      "Date": "2025-05-26",
+      "forecast": 17934.02836405373,
+      "total_sun_rt": 22166.47
+    },
+    {
+      "Date": "2025-05-27",
+      "forecast": 31472.31525162537,
+      "total_sun_rt": 30346.07
+    }
+  ]
+}
